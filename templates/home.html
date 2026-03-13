@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Inicio | EPS Digital{% endblock %}
+{% block content %}
+<section class="hero card">
+    <div>
+        <p class="eyebrow">Inteligencia Artificial al servicio de tu salud</p>
+        <h1>Agenda tu cita médica de forma rápida y sencilla</h1>
+        <p>Reserva y gestiona tus citas, consulta servicios disponibles y accede a un asistente virtual inspirado en tus mockups.</p>
+        <div class="actions">
+            <a class="button primary" href="{{ url_for('appointments_book') }}">Agendar Cita</a>
+            <a class="button secondary" href="{{ url_for('services') }}">Conoce más</a>
+        </div>
+    </div>
+    <div class="hero-panel">
+        <div class="stat-card">
+            <strong>Agenda 24/7</strong>
+            <span>Reserva y gestiona tus citas a cualquier hora, desde cualquier lugar.</span>
+        </div>
+        <div class="stat-card">
+            <strong>Asistente con IA</strong>
+            <span>Obtén respuestas rápidas y orientación médica personalizada.</span>
+        </div>
+        <div class="stat-card">
+            <strong>Cerca de ti</strong>
+            <span>Encuentra especialistas y centros cercanos a tu ubicación.</span>
+        </div>
+    </div>
+</section>
+
+{% if current_user %}
+<section class="grid two-columns">
+    <article class="card">
+        <h2>Bienvenido, {{ current_user.name }}</h2>
+        <p>Tu documento registrado es {{ current_user.document_number }} y tu estado actual es {{ current_user.status }}.</p>
+        <div class="actions">
+            <a class="button secondary" href="{{ url_for('profile') }}">Ir a Mi Perfil</a>
+            <a class="button secondary" href="{{ url_for('appointments_view') }}">Ver mis Citas</a>
+        </div>
+    </article>
+
+    <article class="card">
+        <h2>Última cita registrada</h2>
+        {% if latest_appointment %}
+            <p><strong>Servicio:</strong> {{ latest_appointment.service }}</p>
+            <p><strong>Médico:</strong> {{ latest_appointment.doctor }}</p>
+            <p><strong>Fecha:</strong> {{ latest_appointment.date }}</p>
+            <p><strong>Hora:</strong> {{ latest_appointment.time }}</p>
+        {% else %}
+            <p>Aún no tienes citas guardadas. Puedes agendar una desde el menú principal.</p>
+        {% endif %}
+    </article>
+</section>
+{% else %}
+<section class="card callout">
+    <h2>Empieza en dos pasos</h2>
+    <p>Primero crea tu cuenta local para la demostración, luego inicia sesión y agenda tu primera cita.</p>
+    <div class="actions">
+        <a class="button primary" href="{{ url_for('register') }}">Crear Cuenta</a>
+        <a class="button secondary" href="{{ url_for('login') }}">Iniciar Sesión</a>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

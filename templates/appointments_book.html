@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Agendar Cita | EPS Digital{% endblock %}
+{% block content %}
+<section class="grid two-columns appointment-layout">
+    <form method="post" class="card form-card">
+        <h1>Agendar Nueva Cita</h1>
+        <div class="grid form-grid single-column">
+            <label>Tipo de Servicio
+                <select name="service" id="service" required>
+                    <option value="">Selecciona un servicio</option>
+                    {% for service_name, metadata in service_options.items() %}
+                        <option value="{{ service_name }}">{{ service_name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>Médico de preferencia
+                <input type="text" name="doctor" id="doctor" placeholder="Se autocompleta según el servicio" required>
+            </label>
+            <label>Fecha preferida
+                <input type="date" name="appointment_date" required>
+            </label>
+            <label>Hora Preferida
+                <input type="time" name="appointment_time" required>
+            </label>
+            <label>Descripción de Síntomas
+                <textarea name="symptoms" id="symptoms" rows="5" placeholder="Describe brevemente tus síntomas para que el sistema pueda asignarte el especialista correcto." required></textarea>
+            </label>
+            <div class="actions">
+                <button class="button primary" type="submit">Confirmar Cita</button>
+                <a class="button secondary" href="{{ url_for('home') }}">Volver al inicio</a>
+            </div>
+        </div>
+    </form>
+
+    <aside class="card summary-card">
+        <h2>Resumen de Cita</h2>
+        <div class="summary-item"><strong>Servicio:</strong> <span id="summary-service">-</span></div>
+        <div class="summary-item"><strong>Especialidad:</strong> <span id="summary-specialty">-</span></div>
+        <div class="summary-item"><strong>Médico:</strong> <span id="summary-doctor">-</span></div>
+        <div class="summary-item"><strong>Síntomas:</strong> <span id="summary-symptoms">-</span></div>
+        <p class="helper-text">Las opciones con asterisco continúan visibles en el menú, pero muestran la vista En construcción para cumplir el entregable.</p>
+    </aside>
+</section>
+{% endblock %}

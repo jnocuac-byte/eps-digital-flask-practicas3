@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Juan",
+    "email": "juan@email.com",
+    "phone": "3001001010",
+    "address": "Carrera 10",
+    "document_type": "CC",
+    "document_number": "10000132",
+    "password_hash": "scrypt:32768:8:1$uCvgxWGbytYBHM43$a353925bdb89bf2aa157c386831345fd45222b502a91deeeab24507b92dcb22b0b449ef52aa8c2121f71bb53b59fa9dacc8ffe0c50ef873b65abb479fc810802",
+    "blood_type": "O+",
+    "allergies": "Ninguna registrada",
+    "chronic_conditions": "Sin antecedentes reportados",
+    "assigned_doctor": "Dra. Laura Sánchez",
+    "policy_number": "POL-0132-FF42",
+    "affiliate_date": "2026-03-13",
+    "membership": "Premium",
+    "status": "Activo"
+  }
+]

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Ayuda | EPS Digital{% endblock %}
+{% block content %}
+<section class="card">
+    <div class="tabs">
+        <a href="{{ url_for('help_page', tab='guide') }}" class="{% if tab == 'guide' %}active{% endif %}">Guía de uso</a>
+        <a href="{{ url_for('help_page', tab='faq') }}" class="{% if tab == 'faq' %}active{% endif %}">Preguntas frecuentes</a>
+        <a href="{{ url_for('construction', title='Contacto y soporte') }}" class="under-construction">Contacto y soporte*</a>
+        <a href="{{ url_for('help_page', tab='legal') }}" class="{% if tab == 'legal' %}active{% endif %}">Información legal</a>
+    </div>
+
+    {% if tab == 'guide' %}
+        <h1>Guía de uso</h1>
+        <p>Usa la barra superior para navegar entre Inicio, Mi Perfil, Citas Médicas, Asistente Virtual, Servicios y Ayuda.</p>
+        <p>Para una demo completa, primero regístrate, luego inicia sesión y agenda una cita desde el formulario principal.</p>
+        <p>La navegación con teclado funciona con Tab y Shift + Tab. Además, el acceso rápido Alt + H te lleva al inicio.</p>
+    {% elif tab == 'faq' %}
+        <h1>Preguntas frecuentes</h1>
+        <div class="faq-list">
+            {% for item in faq_items %}
+                <details>
+                    <summary>{{ item.question }}</summary>
+                    <p>{{ item.answer }}</p>
+                </details>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1>Información legal</h1>
+        <p>Este prototipo académico usa almacenamiento local en archivos JSON únicamente para demostración.</p>
+        <p>No debe usarse en producción con datos reales de pacientes sin aplicar controles de seguridad, cifrado, políticas de protección de datos y una base de datos robusta.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Asistente Virtual | EPS Digital{% endblock %}
+{% block content %}
+<section class="grid assistant-layout">
+    <aside class="card quick-actions">
+        <h2>Accesos rápidos</h2>
+        <a class="button secondary full-width" href="{{ url_for('appointments_book') }}">Agendar Cita</a>
+        <a class="button secondary full-width" href="{{ url_for('appointments_view') }}">Ver mis Citas</a>
+        <a class="button secondary full-width" href="{{ url_for('help_page', tab='faq') }}">Información General</a>
+        <a class="button ghost full-width" href="{{ url_for('construction', title='Orientación por síntomas') }}">Orientación por Síntomas*</a>
+    </aside>
+
+    <section class="card chat-card">
+        <div class="chat-header">
+            <div>
+                <h1>EPSIA</h1>
+                <p>Asistente EPSIA - En Línea</p>
+            </div>
+        </div>
+
+        <div class="chat-body" id="chat-body">
+            <div class="message bot">¡Hola! Soy el Asistente EPSIA, tu asistente médico virtual. ¿En qué puedo ayudarte hoy?</div>
+            <div class="message user">Necesito agendar una cita con un cardiólogo.</div>
+            <div class="message bot">Puedes ir a Citas Médicas > Agendar nueva cita y seleccionar Cardiología. También puedo orientarte con servicios generales.</div>
+        </div>
+
+        <form class="chat-form" id="chat-form">
+            <input type="text" id="chat-input" placeholder="Escribe un mensaje..." autocomplete="off">
+            <button type="submit" class="button primary">Enviar</button>
+        </form>
+    </section>
+</section>
+{% endblock %}

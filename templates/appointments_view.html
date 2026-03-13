@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Ver Citas | EPS Digital{% endblock %}
+{% block content %}
+<section class="card">
+    <div class="section-header">
+        <div>
+            <h1>Ver citas programadas</h1>
+            <p>Listado de las citas activas del usuario con fecha, hora, especialidad y sede asignada.</p>
+        </div>
+        <a class="button secondary" href="{{ url_for('appointments_book') }}">Agendar otra cita</a>
+    </div>
+
+    {% if appointments %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Servicio</th>
+                        <th>Especialidad</th>
+                        <th>Médico</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Sede</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments|reverse %}
+                    <tr>
+                        <td>{{ appointment.id }}</td>
+                        <td>{{ appointment.service }}</td>
+                        <td>{{ appointment.specialty }}</td>
+                        <td>{{ appointment.doctor }}</td>
+                        <td>{{ appointment.date }}</td>
+                        <td>{{ appointment.time }}</td>
+                        <td>{{ appointment.venue }}</td>
+                        <td><span class="status-chip">{{ appointment.status }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>Aún no tienes citas registradas.</p>
+    {% endif %}
+
+    <div class="actions top-space">
+        <a class="button secondary" href="{{ url_for('home') }}">Volver al inicio</a>
+        <a class="button ghost" href="{{ url_for('construction', title='Cancelar o Reprogramar') }}">Cancelar o Reprogramar*</a>
+        <a class="button ghost" href="{{ url_for('construction', title='Historial de citas') }}">Historial de citas*</a>
+    </div>
+</section>
+{% endblock %}

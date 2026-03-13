@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}En construcción | EPS Digital{% endblock %}
+{% block content %}
+<section class="card construction-card narrow">
+    <h1>{{ title }}</h1>
+    <p>En construcción.</p>
+    <p>Esta opción permanece activa en el menú, pero fue marcada con asterisco porque no se implementa completamente en esta etapa.</p>
+    <div class="actions">
+        <a class="button primary" href="{{ url_for('home') }}">Volver al inicio</a>
+        <a class="button secondary" href="javascript:history.back()">Volver atrás</a>
+    </div>
+</section>
+{% endblock %}

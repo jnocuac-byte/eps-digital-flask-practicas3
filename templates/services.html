@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Servicios | EPS Digital{% endblock %}
+{% block content %}
+<section class="card">
+    <div class="section-header">
+        <div>
+            <h1>Nuestros Servicios</h1>
+            <p>Explora el catálogo de especialidades médicas y servicios diagnósticos disponibles.</p>
+        </div>
+        <input type="text" id="service-search" placeholder="Buscar servicio o especialidad...">
+    </div>
+
+    <div class="service-grid" id="service-grid">
+        {% for service in services %}
+            <article class="service-card" data-service="{{ service.title|lower }} {{ service.description|lower }}">
+                <div class="service-icon">{{ service.icon }}</div>
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.description }}</p>
+                <span class="availability {% if service.implemented %}ok{% else %}pending{% endif %}">{{ service.availability }}</span>
+                {% if service.implemented %}
+                    <a class="button secondary top-space" href="{{ url_for('appointments_book') }}">Agendar</a>
+                {% else %}
+                    <a class="button ghost top-space" href="{{ url_for('construction', title=service.title) }}">Abrir módulo</a>
+                {% endif %}
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

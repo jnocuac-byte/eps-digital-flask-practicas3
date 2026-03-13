@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Registro | EPS Digital{% endblock %}
+{% block content %}
+<section class="card form-card narrow">
+    <h1>Regístrate</h1>
+    <p>Crea una nueva cuenta para gestionar tus citas médicas en línea.</p>
+    <form method="post" class="grid form-grid">
+        <label>Nombre
+            <input type="text" name="name" required>
+        </label>
+        <label>Correo Electrónico
+            <input type="email" name="email" required>
+        </label>
+        <label>Número de Teléfono
+            <input type="text" name="phone" required>
+        </label>
+        <label>Dirección
+            <input type="text" name="address" required>
+        </label>
+        <label>Tipo de documento
+            <select name="document_type" required>
+                <option value="">Selecciona</option>
+                <option value="CC">Cédula de Ciudadanía</option>
+                <option value="TI">Tarjeta de Identidad</option>
+                <option value="CE">Cédula de Extranjería</option>
+            </select>
+        </label>
+        <label>Número de Documento
+            <input type="text" name="document_number" required>
+        </label>
+        <label>Contraseña
+            <input type="password" name="password" required>
+        </label>
+        <label>Confirmar Contraseña
+            <input type="password" name="confirm_password" required>
+        </label>
+        <label class="full-width checkbox">
+            <input type="checkbox" name="terms" value="1" required>
+            <span>Acepto los Términos y Condiciones y las Políticas de Privacidad.</span>
+        </label>
+        <div class="password-rules full-width">
+            <strong>Requisitos de contraseña:</strong>
+            <span>Mínimo 8 caracteres, al menos una mayúscula y al menos un número.</span>
+        </div>
+        <div class="actions full-width">
+            <button class="button primary" type="submit">Crear Cuenta</button>
+            <a class="button secondary" href="{{ url_for('home') }}">Volver al inicio</a>
+        </div>
+    </form>
+    <p>¿Ya tienes cuenta? <a href="{{ url_for('login') }}">Iniciar Sesión</a></p>
+</section>
+{% endblock %}

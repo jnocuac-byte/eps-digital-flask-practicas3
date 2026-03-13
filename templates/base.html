@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EPS Digital{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="brand">EPS Digital</div>
+        <nav class="main-nav" aria-label="Navegación principal">
+            <a href="{{ url_for('home') }}" class="{% if page == 'home' %}active{% endif %}" accesskey="h">Inicio</a>
+            <a href="{{ url_for('profile') }}" class="{% if page == 'profile' %}active{% endif %}">Mi Perfil</a>
+
+            <div class="nav-dropdown">
+                <button class="nav-toggle {% if page == 'appointments' %}active{% endif %}" aria-expanded="{% if page == 'appointments' %}true{% else %}false{% endif %}">Citas Médicas</button>
+                <div class="dropdown-menu {% if page == 'appointments' %}show{% endif %}">
+                    <a href="{{ url_for('appointments_book') }}" class="{% if subpage == 'book' %}active{% endif %}">Agendar nueva cita</a>
+                    <a href="{{ url_for('appointments_view') }}" class="{% if subpage == 'view' %}active{% endif %}">Ver citas programadas</a>
+                    <a href="{{ url_for('construction', title='Cancelar o Reprogramar') }}" class="under-construction">Cancelar o Reprogramar*</a>
+                    <a href="{{ url_for('construction', title='Historial de citas') }}" class="under-construction">Historial de citas*</a>
+                </div>
+            </div>
+
+            <a href="{{ url_for('assistant') }}" class="{% if page == 'assistant' %}active{% endif %}">Asistente Virtual</a>
+            <a href="{{ url_for('services') }}" class="{% if page == 'services' %}active{% endif %}">Servicios</a>
+
+            <div class="nav-dropdown">
+                <button class="nav-toggle {% if page == 'help' %}active{% endif %}" aria-expanded="{% if page == 'help' %}true{% else %}false{% endif %}">Ayuda</button>
+                <div class="dropdown-menu {% if page == 'help' %}show{% endif %}">
+                    <a href="{{ url_for('help_page', tab='guide') }}" class="{% if tab == 'guide' %}active{% endif %}">Guía de uso</a>
+                    <a href="{{ url_for('help_page', tab='faq') }}" class="{% if tab == 'faq' %}active{% endif %}">Preguntas frecuentes</a>
+                    <a href="{{ url_for('construction', title='Contacto y soporte') }}" class="under-construction">Contacto y soporte*</a>
+                    <a href="{{ url_for('help_page', tab='legal') }}" class="{% if tab == 'legal' %}active{% endif %}">Información legal</a>
+                </div>
+            </div>
+
+            {% if current_user %}
+                <form method="post" action="{{ url_for('logout') }}" class="inline-form">
+                    <button class="link-button" type="submit">Cerrar sesión</button>
+                </form>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="{% if page == 'login' %}active{% endif %}">Iniciar Sesión</a>
+                <a href="{{ url_for('register') }}" class="{% if page == 'register' %}active{% endif %}">Registrarse</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <span>EPS Digital © {{ current_year }}</span>
+        <span>Política de Privacidad | Términos y condiciones</span>
+    </footer>
+
+    <script>
+        window.serviceOptions = {{ service_options | tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

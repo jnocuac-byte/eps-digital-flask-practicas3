@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Mi Perfil | EPS Digital{% endblock %}
+{% block content %}
+<section class="card profile-header">
+    <div>
+        <h1>{{ current_user.name }}</h1>
+        <p>Número de afiliado: {{ current_user.policy_number }}</p>
+        <p>Afiliación: {{ current_user.membership }}</p>
+    </div>
+    <a class="button secondary" href="{{ url_for('home') }}">Volver al inicio</a>
+</section>
+
+<section class="card">
+    <div class="tabs">
+        <a href="{{ url_for('profile', tab='personal') }}" class="{% if tab == 'personal' %}active{% endif %}">Información Personal</a>
+        <a href="{{ url_for('profile', tab='medical') }}" class="{% if tab == 'medical' %}active{% endif %}">Información Médica</a>
+        <a href="{{ url_for('profile', tab='eps') }}" class="{% if tab == 'eps' %}active{% endif %}">Mi EPS</a>
+        <a href="{{ url_for('construction', title='Configuración de cuenta') }}" class="under-construction">Configuración de Cuenta*</a>
+    </div>
+
+    {% if tab == 'personal' %}
+        <div class="info-grid">
+            <div><strong>Documento</strong><span>{{ current_user.document_type }} {{ current_user.document_number }}</span></div>
+            <div><strong>Teléfono</strong><span>{{ current_user.phone }}</span></div>
+            <div><strong>Email</strong><span>{{ current_user.email }}</span></div>
+            <div><strong>Dirección</strong><span>{{ current_user.address }}</span></div>
+        </div>
+    {% elif tab == 'medical' %}
+        <div class="info-grid">
+            <div><strong>Tipo de Sangre</strong><span>{{ current_user.blood_type }}</span></div>
+            <div><strong>Alergias</strong><span>{{ current_user.allergies }}</span></div>
+            <div><strong>Enfermedades Crónicas</strong><span>{{ current_user.chronic_conditions }}</span></div>
+            <div><strong>Médico Asignado</strong><span>{{ current_user.assigned_doctor }}</span></div>
+        </div>
+    {% else %}
+        <div class="info-grid">
+            <div><strong>Número de Póliza</strong><span>{{ current_user.policy_number }}</span></div>
+            <div><strong>Fecha de Afiliación</strong><span>{{ current_user.affiliate_date }}</span></div>
+            <div><strong>Estado</strong><span>{{ current_user.status }}</span></div>
+            <div><strong>Plan</strong><span>{{ current_user.membership }}</span></div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
